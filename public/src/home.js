@@ -1,4 +1,6 @@
-function getTotalBooksCount(books) {}
+function getTotalBooksCount(books) {
+  return books.length;
+}
 
 function getTotalAccountsCount(accounts) {}
 
