@@ -24,18 +24,15 @@ function getTotalNumberOfBorrows(account, books) {
 }
 
 function getBooksPossessedByAccount(account, books, authors) {
-  const authorBooks = books.map((book) => {
-    book.author = authors.find((author) => author.id === book.author.id);
-  });
+  const authorBooks = books.reduce((authorBooks, book) => {
+    authorBooks.push(book);
+    book.author = authors.find((author) => author.id === book.authorId);
+    return authorBooks;
+  }, []);
   return authorBooks.filter((book) =>
     book.borrows.find((record) => record.id === account.id && !record.returned)
   );
 }
-/*
-function getElementInObject(element, obj)
-{
-
-}*/
 
 module.exports = {
   findAccountById,
