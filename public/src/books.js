@@ -1,10 +1,30 @@
-function findAuthorById(authors, id) {}
+const { getBooksBorrowedCount } = require("./home");
 
-function findBookById(books, id) {}
+function findAuthorById(authors, id) {
+  return findElementById(authors, id);
+}
 
-function partitionBooksByBorrowedStatus(books) {}
+function findBookById(books, id) {
+  return findElementById(books, id);
+}
+
+function partitionBooksByBorrowedStatus(books) {
+  const returned = true;
+  const loaned = !returned;
+  const returnedBooks = filterBorrowed(books, returned);
+  const loanedBooks = filterBorrowed(books, loaned);
+  return [[...loanedBooks], [...returnedBooks]];
+}
 
 function getBorrowersForBook(book, accounts) {}
+
+function findElementById(elements, id) {
+  return elements.find((element) => element.id === id);
+}
+
+function filterBorrowed(books, status) {
+  return books.filter(({ borrows }) => status === borrows[0].returned);
+}
 
 module.exports = {
   findAuthorById,
