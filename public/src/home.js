@@ -37,7 +37,22 @@ function getMostPopularBooks(books) {
     .slice(0, 5);
 }
 
-function getMostPopularAuthors(books, authors) {}
+function getMostPopularAuthors(books, authors) {
+  return authors
+    .map(({ name: { first, last }, id }) => ({
+      name: `${first} ${last}`,
+      count: authorBorrows(books, id),
+    }))
+    .sort((auth1, auth2) => auth2.count - auth1.count)
+    .slice(0, 5);
+}
+
+function authorBorrows(books, id) {
+  return books.reduce((totalBorrows, book) => {
+    if (book.authorId === id) totalBorrows += book.borrows.length;
+    return totalBorrows;
+  }, 0);
+}
 
 function arrayItemCount(item) {
   return item.length;
