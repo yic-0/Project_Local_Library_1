@@ -17,24 +17,14 @@ function partitionBooksByBorrowedStatus(books) {
 }
 
 function getBorrowersForBook(book, accounts) {
-  /*pseudo code
-  final array = []
-  for each record in book.borrows
-  {
-    obj_x={
-      ...record,
-      ...(account with same id as borrows[i].id)
-    }
-    finalArray.push(obj_x)
-  }
-  */
+  const { borrows } = book;
   let borrowers = [];
-  for (let record in book.borrows) {
+  for (let record in borrows) {
     const matchingAccount = accounts.find(
-      (account) => account.id === record.id
+      (account) => account.id === borrows[record].id
     );
-    const accountObj = { ...record, ...matchingAccount };
-    if (borrows.length < 10) borrowers.push(accountObj);
+    const accountObj = { ...borrows[record], ...matchingAccount };
+    if (borrowers.length < 10) borrowers.push(accountObj);
   }
   return borrowers;
 }
