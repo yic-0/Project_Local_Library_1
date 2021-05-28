@@ -13,7 +13,15 @@ function sortAccountsByLastName(accounts) {
   });
 }
 
-function getTotalNumberOfBorrows(account, books) {}
+function getTotalNumberOfBorrows(account, books) {
+  return books.reduce((totalBorrows, book) => {
+    totalBorrows += book.borrows.reduce((matches, record) => {
+      if (account.id === record.id) matches++;
+      return matches;
+    }, 0);
+    return totalBorrows;
+  }, 0);
+}
 
 function getBooksPossessedByAccount(account, books, authors) {}
 
