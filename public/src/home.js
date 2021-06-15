@@ -32,7 +32,11 @@ function getMostPopularBooks(books) {
   //we can use book.borrowed.length to determine this
 }
 
-function getMostPopularAuthors(books, authors) {}
+function getMostPopularAuthors(books, authors) {
+  //also identical we can use helper function
+  //this time we still iterate through books
+  //but we need information from authors based on corresponding authotId
+}
 
 //helper function to more cleanly determine each author's total number of borrows across all books
 function authorBorrows(books, id) {}
