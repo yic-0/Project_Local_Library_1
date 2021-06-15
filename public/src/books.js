@@ -34,7 +34,7 @@ function getBorrowersForBook(book, accounts) {
   //iterate through each borrow in borrows
   //spread the corresponding account obj into the borrow obj
   const { borrows } = book;
-  let borrowers = [];
+  const borrowers = [];
   for (let record in borrows) {
     const matchingAccount = accounts.find(
       (account) => account.id === borrows[record].id
