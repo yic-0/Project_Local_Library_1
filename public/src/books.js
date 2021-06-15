@@ -1,9 +1,6 @@
 const { getBooksBorrowedCount } = require("./home");
 
-function findAuthorById(authors, id) {
-  //use the findElementById helper function I wrote
-  return findElementById(authors, id);
-}
+function findAuthorById(authors, id) {}
 
 function findBookById(books, id) {
   //use the findElementById helper function I wrote
@@ -22,17 +19,6 @@ function partitionBooksByBorrowedStatus(books) {
 }
 
 function getBorrowersForBook(book, accounts) {
-  //This one was a headache, I won't lie. pseudo code posted at the bottom
-  const { borrows } = book;
-  let borrowers = [];
-  for (let record in borrows) {
-    const matchingAccount = accounts.find(
-      (account) => account.id === borrows[record].id
-    );
-    const accountObj = { ...borrows[record], ...matchingAccount };
-    if (borrowers.length < 10) borrowers.push(accountObj);
-  }
-  return borrowers;
   /*pseudo code
   final array = []
   for each record in book.borrows
