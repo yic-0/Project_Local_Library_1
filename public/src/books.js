@@ -11,15 +11,21 @@ function findBookById(books, id) {
 }
 
 function partitionBooksByBorrowedStatus(books) {
-  //return two arrays
+  //return two arrays spread into one array
   //first array is all of the currently loaned books
   //second is all of the currently returned books
   //how do we find this out?
+  const borrowed = []; //Has all books checkedout
+  const returned = []; //Has all books !checkedout
   //iterate through each book in books
-  //conditional to see if the book is loaned
-  //then push it to the corresponding array
+  for (let book of books) {
+    //conditional to see if the book is loaned
+    //then push it to the corresponding array
+    if (book.borrows[0].returned) returned.push(book);
+    else borrowed.push(book);
+  }
   //return an array that spreads both of the arrays
-  //return [[...checkedOut][...returned]]
+  return [[...borrowed], [...returned]];
 }
 
 function getBorrowersForBook(book, accounts) {
