@@ -32,6 +32,8 @@ function getTotalNumberOfBorrows(account, books) {
   return totalBorrowed;
 }
 
+//poo poo stinky
+
 function getBooksPossessedByAccount(account, books, authors) {
   //iterate through each book in books
   //replace current book.author with the corresponding author obj in authors
