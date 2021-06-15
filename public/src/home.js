@@ -55,6 +55,7 @@ function getMostPopularAuthors(books, authors) {
     }))
   );
 }
+
 //helper function to sort and truncate to just first 5 items
 function sortNSlice(arr, slicer = 5) {
   const newArr = [...arr];
