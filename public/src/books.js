@@ -7,16 +7,7 @@ function findBookById(books, id) {
   return findElementById(books, id);
 }
 
-function partitionBooksByBorrowedStatus(books) {
-  //const values to help make the program more readible and easily modifiable
-  const returned = true;
-  const loaned = !returned;
-  //creating easy to understand arrays with my helper function
-  const returnedBooks = filterBorrowed(books, returned);
-  const loanedBooks = filterBorrowed(books, loaned);
-  //using the spread operator with the two arrays crteated above.
-  return [[...loanedBooks], [...returnedBooks]];
-}
+function partitionBooksByBorrowedStatus(books) {}
 
 function getBorrowersForBook(book, accounts) {
   /*pseudo code
