@@ -20,7 +20,7 @@ function getBooksBorrowedCount(books) {
 
 function getMostCommonGenres(books) {
   //reduce methodology
-  return (
+  return sortNSlice(
     books
       //iterate through each book in books
       .reduce((genres, book) => {
@@ -28,8 +28,6 @@ function getMostCommonGenres(books) {
         !genre ? genres.push({ name: book.genre, count: 1 }) : genre.count++;
         return genres;
       }, [])
-      .sort((gen1, gen2) => gen2.count - gen1.count)
-      .slice(0, 5)
   );
 
   //populate an array with objs
@@ -41,23 +39,37 @@ function getMostCommonGenres(books) {
 }
 
 function getMostPopularBooks(books) {
-  return books
-    .map(({ title, borrows }) => ({
+  return sortNSlice(
+    books.map(({ title, borrows }) => ({
       name: title,
       count: arrayItemCount(borrows),
     }))
-    .sort(({ count: count1 }, { count: count2 }) => count2 - count1)
-    .slice(0, 5);
+  );
 }
 
 function getMostPopularAuthors(books, authors) {
-  //also identical we can use helper function
-  //this time we still iterate through books
-  //but we need information from authors based on corresponding authotId
+  return sortNSlice(
+    authors.map(({ name: { first, last }, id }) => ({
+      name: `${first} ${last}`,
+      count: authorBorrows(books, id),
+    }))
+  );
+}
+//helper function to sort and truncate to just first 5 items
+function sortNSlice(arr, slicer = 5) {
+  const newArr = [...arr];
+  return newArr
+    .sort(({ count: count1 }, { count: count2 }) => count2 - count1)
+    .slice(0, slicer);
 }
 
 //helper function to more cleanly determine each author's total number of borrows across all books
-function authorBorrows(books, id) {}
+function authorBorrows(books, id) {
+  return books.reduce((totalBorrows, { authorId, borrows }) => {
+    if (authorId === id) totalBorrows += arrayItemCount(borrows);
+    return totalBorrows;
+  }, 0);
+}
 
 //helper function to easily count up any type of item array based on the length of said array
 function arrayItemCount(item) {
