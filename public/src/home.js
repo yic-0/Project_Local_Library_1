@@ -9,15 +9,29 @@ function getTotalAccountsCount(accounts) {
 }
 
 function getBooksBorrowedCount(books) {
-  //iterate through book in books
-  //check book.borrows[0] === false
-  //if so, acc ++
-  //Reduce methodology
+  //use reduce to iterate through each book in books, and if the first item in the borrows array of that book was not returned, then increase the total borrow counter, and return the full accumulation.
+  return books.reduce((borrowCount, { borrows }) => {
+    //const variable to make the code more readable
+    const lastBorrowed = borrows[0];
+    if (!lastBorrowed.returned) borrowCount++;
+    return borrowCount;
+  }, 0);
 }
 
 function getMostCommonGenres(books) {
   //reduce methodology
-  //iterate through each book in books
+  return (
+    books
+      //iterate through each book in books
+      .reduce((genres, book) => {
+        const genre = genres.find((genre) => genre.name === book.genre);
+        !genre ? genres.push({ name: book.genre, count: 1 }) : genre.count++;
+        return genres;
+      }, [])
+      .sort((gen1, gen2) => gen2.count - gen1.count)
+      .slice(0, 5)
+  );
+
   //populate an array with objs
   //obj = {name: "MyGenre",  count: x}
   //if obj[name] already exists, count++
@@ -27,9 +41,13 @@ function getMostCommonGenres(books) {
 }
 
 function getMostPopularBooks(books) {
-  //same exact thing as above -- Perhaps we can make a helper function for both
-  //populate based on number of times this book has been checkedout
-  //we can use book.borrowed.length to determine this
+  return books
+    .map(({ title, borrows }) => ({
+      name: title,
+      count: arrayItemCount(borrows),
+    }))
+    .sort(({ count: count1 }, { count: count2 }) => count2 - count1)
+    .slice(0, 5);
 }
 
 function getMostPopularAuthors(books, authors) {
