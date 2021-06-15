@@ -9,7 +9,7 @@ function getTotalAccountsCount(accounts) {
 }
 
 function getBooksBorrowedCount(books) {
-  //use reduce to iterate through each book in books, and if the most first item in the borrows array of that book was not returned, then increase the total borrow counter, and return the full accumulation.
+  //use reduce to iterate through each book in books, and if the first item in the borrows array of that book was not returned, then increase the total borrow counter, and return the full accumulation.
   return books.reduce((borrowCount, { borrows }) => {
     //const variable to make the code more readable
     const lastBorrowed = borrows[0];
@@ -23,7 +23,7 @@ function getMostCommonGenres(books) {
   return (
     books
       .reduce((genres, book) => {
-        //genre = first object in genres who's name matches the genre of the current book
+        //genre = first object in genres who's genre name matches the genre name of the current book
         const genre = genres.find((genre) => genre.name === book.genre);
         //If there is no genre with that name, then we create one with count 1, otherwise we increase that genre's count by one (used ternary operator)
         !genre ? genres.push({ name: book.genre, count: 1 }) : genre.count++;
@@ -43,7 +43,7 @@ function getMostPopularBooks(books) {
       //map through each book to create a new array of objects containing the title as the name and the length of the borrows array as its popularity indicator
       .map(({ title, borrows }) => ({
         name: title,
-        count: borrows.length,
+        count: arrayItemCount(borrows),
       }))
       //sort by highest first
       .sort((book1, book2) => book2.count - book1.count)
@@ -69,9 +69,9 @@ function getMostPopularAuthors(books, authors) {
 
 //helper function to more cleanly determine each author's total number of borrows across all books
 function authorBorrows(books, id) {
-  //use reduce to iterate through each book, adding up the llength of the borrows arrays that match the corresponding author id
+  //use reduce to iterate through each book, adding up the length of the borrows arrays that match the corresponding author id
   return books.reduce((totalBorrows, { authorId, borrows }) => {
-    if (authorId === id) totalBorrows += borrows.length;
+    if (authorId === id) totalBorrows += arrayItemCount(borrows);
     return totalBorrows;
   }, 0);
 }

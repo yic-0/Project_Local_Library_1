@@ -5,14 +5,10 @@ function findAccountById(accounts, id) {
 
 function sortAccountsByLastName(accounts) {
   //sort is destructive, so I'll make a new _accounts array that is just a copy of it before sorting
-  const _accounts = accounts.concat();
+  const _accounts = [...accounts];
   //Using the ternary operater in the callback function, this sorts the _accounts array by last name in alphabetical order
   return _accounts.sort((acnt1, acnt2) =>
-    acnt1.name.last === acnt2.name.last
-      ? 0
-      : acnt1.name.last < acnt2.name.last
-      ? -1
-      : 1
+    acnt1.name.last > acnt2.name.last ? 1 : -1
   );
 }
 
