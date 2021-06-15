@@ -8,11 +8,29 @@ function getTotalAccountsCount(accounts) {
   return arrayItemCount(accounts);
 }
 
-function getBooksBorrowedCount(books) {}
+function getBooksBorrowedCount(books) {
+  //iterate through book in books
+  //check book.borrows[0] === false
+  //if so, acc ++
+  //Reduce methodology
+}
 
-function getMostCommonGenres(books) {}
+function getMostCommonGenres(books) {
+  //reduce methodology
+  //iterate through each book in books
+  //populate an array with objs
+  //obj = {name: "MyGenre",  count: x}
+  //if obj[name] already exists, count++
+  //otherwise push the obj into our new array with count 1
+  //truncate the new array into just the 5 highest counts
+  //return the new array
+}
 
-function getMostPopularBooks(books) {}
+function getMostPopularBooks(books) {
+  //same exact thing as above -- Perhaps we can make a helper function for both
+  //populate based on number of times this book has been checkedout
+  //we can use book.borrowed.length to determine this
+}
 
 function getMostPopularAuthors(books, authors) {}
 

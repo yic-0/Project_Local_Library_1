@@ -1,16 +1,33 @@
 const { getBooksBorrowedCount } = require("./home");
 
-function findAuthorById(authors, id) {}
+function findAuthorById(authors, id) {
+  //return author with corresponding ID
+  return findElementById(authors, id);
+}
 
 function findBookById(books, id) {
   //use the findElementById helper function I wrote
   return findElementById(books, id);
 }
 
-function partitionBooksByBorrowedStatus(books) {}
+function partitionBooksByBorrowedStatus(books) {
+  //return two arrays
+  //first array is all of the currently loaned books
+  //second is all of the currently returned books
+  //how do we find this out?
+  //iterate through each book in books
+  //conditional to see if the book is loaned
+  //then push it to the corresponding array
+  //return an array that spreads both of the arrays
+  //return [[...checkedOut][...returned]]
+}
 
 function getBorrowersForBook(book, accounts) {
-  /*pseudo code
+  //return an array
+  //declare a new array of objs that is a copy of accounts
+  //iterate through each borrow in borrows
+  //spread the corresponding account obj into the borrow obj
+  /*OLD pseudo code
   final array = []
   for each record in book.borrows
   {
