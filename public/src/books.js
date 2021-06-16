@@ -2,69 +2,53 @@ const { getBooksBorrowedCount } = require("./home");
 
 function findAuthorById(authors, id) {
   //return author with corresponding ID
-  return findElementById(authors, id);
+  return _findElementById(authors, id);
 }
 
 function findBookById(books, id) {
   //use the findElementById helper function I wrote
-  return findElementById(books, id);
+  return _findElementById(books, id);
 }
 
 function partitionBooksByBorrowedStatus(books) {
-  //return two arrays spread into one array
-  //first array is all of the currently loaned books
-  //second is all of the currently returned books
-  //how do we find this out?
-  //use filter to populate these arrays instead of for loop
-  const borrowed = []; //Has all books checkedout
-  const returned = []; //Has all books !checkedout
-  //iterate through each book in books
-  for (let book of books) {
-    //conditional to see if the book is loaned
-    //then push it to the corresponding array
-    if (book.borrows[0].returned) returned.push(book);
-    else borrowed.push(book);
-  }
+  //book object's borrows array has values at each index for if the book was returned or not
+  //We can set a placeholder boolean to represent this concept called returned
+  const returned = true;
+  //borrowed is just the opposite of returned
+  const borrowed = !returned;
+  //use _filterBorrowed helper function to create filtered arrays of all books that are either borrowed or returned
+  const borrowedBooks = _filterBorrowed(books, borrowed);
+  const returnedBooks = _filterBorrowed(books, returned);
   //return an array that spreads both of the arrays
-  return [[...borrowed], [...returned]];
+  return [[...borrowedBooks], [...returnedBooks]];
 }
 
 function getBorrowersForBook({ borrows }, accounts) {
-  //return an array
-  //declare a new array of objs that is a copy of accounts
-  //iterate through each borrow in borrows
-  //spread the corresponding account obj into the borrow obj
-  //const { borrows } = book;
   const borrowers = [];
   for (let record in borrows) {
-    const matchingAccount = accounts.find(
-      (account) => account.id === borrows[record].id
-    );
+    const borrowId = borrows[record].id;
+    const matchingAccount = _findElementById(accounts, borrowId);
     const accountObj = { ...borrows[record], ...matchingAccount };
     if (borrowers.length < 10) borrowers.push(accountObj);
   }
   return borrowers;
-  /*OLD pseudo code
-  final array = []
-  for each record in book.borrows
-  {
-    accounts.find((account) => account.id == borrows[i].id)
-    obj_x={
-      ...books.borrows[i],
-      ...(account with same id as borrows[i].id)
-    } 
-    finalArray.push(obj_x)
-  }
-  */
+  /* Map implementation I like more, but I left the for in for the sake of the rubric
+    return borrows
+    .map((record) => {
+      const matchingAccount = _findElementById(accounts, record.id);
+      return { ...record, ...matchingAccount };
+    })
+    .slice(0, 10);
+    /**/
 }
 
 //Helper function I wrote to easily find an element in a provided array given an "id" value
-function findElementById(elements, id) {
+function _findElementById(elements, id) {
   return elements.find((element) => element.id === id);
 }
 
 //Helper Function to make partitionBooksByBorrowed Status more readable and filter out a list of books based on their "returned" status
-function filterBorrowed(books, status) {
+function _filterBorrowed(books, status) {
   return books.filter(({ borrows }) => status === borrows[0].returned);
 }
 
