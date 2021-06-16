@@ -53,8 +53,8 @@ function getBooksPossessedByAccount(account, books, authors) {
   return checkoutBooks.map(
     (book) => (book["author"] = authors.find((author) => author.id === id))
   );
-  /**/
 
+  /**/
   ///*For loop methodology
   for (let book of checkoutBooks) {
     const id = book.authorId;

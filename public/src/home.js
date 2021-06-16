@@ -48,10 +48,12 @@ function getMostPopularBooks(books) {
 }
 
 function getMostPopularAuthors(books, authors) {
+  //Use SortNSlice helper function to sort by highest and truncate to just top 5
   return sortNSlice(
+    //map through each author in authors
     authors.map(({ name: { first, last }, id }) => ({
-      name: `${first} ${last}`,
-      count: authorBorrows(books, id),
+      name: `${first} ${last}`, //name is just our current author's name
+      count: _authorBorrows(books, id), //uses helper function to determine the number of times this authorId is found in each book's borrows arrays
     }))
   );
 }
@@ -65,7 +67,7 @@ function sortNSlice(arr, slicer = 5) {
 }
 
 //helper function to more cleanly determine each author's total number of borrows across all books
-function authorBorrows(books, id) {
+function _authorBorrows(books, id) {
   return books.reduce((totalBorrows, { authorId, borrows }) => {
     if (authorId === id) totalBorrows += arrayItemCount(borrows);
     return totalBorrows;
