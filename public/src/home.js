@@ -9,47 +9,46 @@ function getTotalAccountsCount(accounts) {
 }
 
 function getBooksBorrowedCount(books) {
-  //use reduce to iterate through each book in books, and if the first item in the borrows array of that book was not returned, then increase the total borrow counter, and return the full accumulation.
+  //use reduce to iterate through each book in books
   return books.reduce((borrowCount, { borrows }) => {
-    //const variable to make the code more readable
-    const lastBorrowed = borrows[0];
-    if (!lastBorrowed.returned) borrowCount++;
+    //If the most recent transaction in borrows has not been returned, then increase the total borrow counter.
+    const mostRecent = borrows[0];
+    if (!mostRecent.returned) borrowCount++;
     return borrowCount;
   }, 0);
 }
 
 function getMostCommonGenres(books) {
-  //reduce methodology
-  return sortNSlice(
+  //Use __sortNSlice helper function to sort by highest and truncate to just top 5
+  return _sortNSlice(
     books
       //iterate through each book in books
       .reduce((genres, book) => {
-        const genre = genres.find((genre) => genre.name === book.genre);
-        !genre ? genres.push({ name: book.genre, count: 1 }) : genre.count++;
+        //check the array we are currently constructing to see if we already have this genre
+        const matchingGenre = genres.find((genre) => genre.name === book.genre);
+        //if we don't have a match, push it into our genres array with count 1, otherwise increase the current count by 1
+        !matchingGenre
+          ? genres.push({ name: book.genre, count: 1 })
+          : matchingGenre.count++;
         return genres;
       }, [])
   );
-
-  //populate an array with objs
-  //obj = {name: "MyGenre",  count: x}
-  //if obj[name] already exists, count++
-  //otherwise push the obj into our new array with count 1
-  //truncate the new array into just the 5 highest counts
-  //return the new array
 }
 
 function getMostPopularBooks(books) {
-  return sortNSlice(
+  //Use _sortNSlice helper function to sort by highest and truncate to just top 5
+  return _sortNSlice(
+    //map through each book in books
     books.map(({ title, borrows }) => ({
-      name: title,
+      name: title, //name is the title of the book we deconstructed
       count: arrayItemCount(borrows),
     }))
   );
 }
 
 function getMostPopularAuthors(books, authors) {
-  //Use SortNSlice helper function to sort by highest and truncate to just top 5
-  return sortNSlice(
+  //Use _sortNSlice helper function to sort by highest and truncate to just top 5
+  return _sortNSlice(
     //map through each author in authors
     authors.map(({ name: { first, last }, id }) => ({
       name: `${first} ${last}`, //name is just our current author's name
@@ -59,7 +58,7 @@ function getMostPopularAuthors(books, authors) {
 }
 
 //helper function to sort and truncate to just first 5 items
-function sortNSlice(arr, slicer = 5) {
+function _sortNSlice(arr, slicer = 5) {
   const newArr = [...arr];
   return newArr
     .sort(({ count: count1 }, { count: count2 }) => count2 - count1)

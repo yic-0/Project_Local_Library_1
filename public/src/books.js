@@ -15,6 +15,7 @@ function partitionBooksByBorrowedStatus(books) {
   //first array is all of the currently loaned books
   //second is all of the currently returned books
   //how do we find this out?
+  //use filter to populate these arrays instead of for loop
   const borrowed = []; //Has all books checkedout
   const returned = []; //Has all books !checkedout
   //iterate through each book in books
@@ -28,12 +29,12 @@ function partitionBooksByBorrowedStatus(books) {
   return [[...borrowed], [...returned]];
 }
 
-function getBorrowersForBook(book, accounts) {
+function getBorrowersForBook({ borrows }, accounts) {
   //return an array
   //declare a new array of objs that is a copy of accounts
   //iterate through each borrow in borrows
   //spread the corresponding account obj into the borrow obj
-  const { borrows } = book;
+  //const { borrows } = book;
   const borrowers = [];
   for (let record in borrows) {
     const matchingAccount = accounts.find(
