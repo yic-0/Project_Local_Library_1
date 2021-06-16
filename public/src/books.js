@@ -24,15 +24,19 @@ function partitionBooksByBorrowedStatus(books) {
 }
 
 function getBorrowersForBook({ borrows }, accounts) {
+  //array we will populate and return
   const borrowers = [];
+  // iterate through each record in borrows
   for (let record in borrows) {
+    //find matching account using helper function
     const borrowId = borrows[record].id;
     const matchingAccount = _findElementById(accounts, borrowId);
-    const accountObj = { ...borrows[record], ...matchingAccount };
-    if (borrowers.length < 10) borrowers.push(accountObj);
+    borrowers.push({ ...borrows[record], ...matchingAccount });
   }
-  return borrowers;
-  /* Map implementation I like more, but I left the for in for the sake of the rubric
+  //truncate to just the first ten elements and return the array
+  return borrowers.slice(0, 10);
+
+  /* Map implementation I like more, but I left the "for in" for the sake of the rubric
     return borrows
     .map((record) => {
       const matchingAccount = _findElementById(accounts, record.id);
