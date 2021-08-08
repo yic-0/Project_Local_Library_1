@@ -7,7 +7,9 @@
 # Screenshots
 ## **Homepage / Overall Stats** 
 [*(./public/src/home.js)*](https://github.com/TrevorGlascock/Project_Local_Library_1/blob/main/public/src/home.js)
+
 Displays 4 different stat cards:
+
 ![Homepage / Overall Stats](https://raw.githubusercontent.com/TrevorGlascock/Project_Local_Library_1/main/Screenshots/Overall-Stats.png)
 - **General Stats** -- Displays 3 different general stats:
   - Total number of books in the library
@@ -25,7 +27,9 @@ Displays 4 different stat cards:
 
 ## **Stats By Book** 
 [*(./public/src/books.js)*](https://github.com/TrevorGlascock/Project_Local_Library_1/blob/main/public/src/books.js)
+
 Displays 3 different sections of data:
+
 ![Stats By Books](https://raw.githubusercontent.com/TrevorGlascock/Project_Local_Library_1/main/Screenshots/Stats-By-Books.png)
 - **Book List (left side element)** -- Displays a list of all books, as well as a label indicating whether or not it is currently loaned out, and is partitioned by said label so that all returned books are seen first
   - [*partitionBooksByBorrowedStatus(arrayOfBooks)*](https://github.com/TrevorGlascock/Project_Local_Library_1/blob/main/public/src/books.js#L13)
@@ -40,7 +44,9 @@ Displays 3 different sections of data:
 
 ## **Stats By Account** 
 [*(./public/src/accounts.js)*](https://github.com/TrevorGlascock/Project_Local_Library_1/blob/main/public/src/accounts.js)
+
 Displays 3 different sections of data:
+
 ![Stats By Accounts](https://raw.githubusercontent.com/TrevorGlascock/Project_Local_Library_1/main/Screenshots/Stats-By-Accounts.png)
 - **Account List (left side element)** -- Displays a list of all accounts, sorted by last name in alphabetical order
   - [*sortAccountsByLastName(arrayOfAccounts)*](https://github.com/TrevorGlascock/Project_Local_Library_1/blob/main/public/src/accounts.js#L6)
